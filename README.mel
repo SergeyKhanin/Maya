@@ -1,0 +1,132 @@
+                    //Perfect Sphere Script
+                        /*version 1.0*/
+
+/* 
+
+Script done by: Sergey Khanin
+Contact email: khaninsergeyleonidovich@gmail.com
+ 
+Script generate perfect quads sphere
+ 
+        Supported maya version:
+         - Maya 2018
+         - Maya 2019 and up
+         - Did not check an older version, let me know if it works
+         
+//You can use the script for personl commercial work 
+//You can use the script if you freelance artist or you are working in the studio 
+//You can change or reuse the script code without at least some credits 
+//If you have feedback, send me message on email
+//Script is free and available for download only on my Gumroad    
+         
+
+//DISCLAIMER
+AUTOR THIS SCRIPT
+THE SCRIPT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. KLADUIO LADAVAC DOES NOT MAKE AND HEREBY 
+DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES INCLUDING, BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT, 
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ARISING FROM A COURSE OF DEALING, USAGE, OR TRADE 
+PRACTICE. IN NO EVENT WILL KLAUDIO LADAVAC BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF KLAUDIO LADAVAC HAS BEEN ADVISED OF THE POSSIBILITY OR 
+PROBABILITY OF SUCH DAMAGES.   
+         
+
+Instalshion:
+   -In Maya, open Script Editor and simply open (in MEL tab) the script file "qSphere_v.?.?"
+   -Save it in the shelf
+   -You can custom icon (provided with the download "qSphere_icon")
+   -Copy script to "command" tab in Shelf editor
+   -In "command" tab write short command "qsphere 30 3 0;" without "" or your custom command
+   -You may add popup menu short command like*                                                     qsphere 30 3 0;
+                                                                                                   qsphere 30 3 1;   
+   *FIRST START NEED "double click command
+   
+//BAGS
+
+                                                          /\
+                                                         /  \
+                                                        /    \
+                                                       /_    _\
+                                                         |  |
+                                                         |  |
+                                                         |  |
+_________________________________________delete this after reading,if you want_____________________________________________________
+
+                                                                                   
+*/
+
+  
+//Selecet sphere radius 
+float $sk_sphereR = 30;      /*Sphere radius chooser*/ 
+
+//Selecet smooth divisions
+int $sk_SmoothD = 3;         /*Smooth divisions chooser*/    /*FACE*/    /* 0-6    1-24    2-96    3-384    4-1536    5-6144    6-... */  
+
+//UV value
+int $sk_cubeUV = 0;          /* 0 - UV off */    /* 1 - UV on */
+
+
+/*_________________________________________________________________________________________________________________________________/*
+
+
+    
+//Sphere quality
+int $sk_sphereQ = 60; /*recommended 50-70*/ 
+       
+//Sphere size calculation
+int $sk_sphereS = $sk_SmoothD * $sk_sphereQ;
+          
+//Coefficient value
+float $sk_coefficientvalue = 2.3;
+    
+//Cube size calculation
+float $sk_cubeHWD = $sk_sphereR * $sk_coefficientvalue;
+      
+//Type  object name
+string $sk_quadsphereN = "qSphere1";
+string $sk_cubeN = "qsCube";
+string $sk_sphereN = "qsSphere";
+string $sk_printqsN = "quad_sphere_created";
+    
+//Create geometry
+polySphere -r $sk_sphereR -sx $sk_sphereS  -sy $sk_sphereS  -n $sk_sphereN;
+polyCube -w $sk_cubeHWD -h $sk_cubeHWD -d $sk_cubeHWD -n $sk_cubeN;
+    
+//Create UV   
+        if ($sk_cubeUV == 1) /*1-ON UV*/  
+            {
+            select -r qsCube;
+            CutUVs;   
+            }
+        if ($sk_cubeUV<= 0) /*0-OFF UV*/ 
+            {
+            select -r qsCube;
+            DeleteUVs;   
+            }
+           
+//Smooth cube
+select -r qsCube;
+polySmooth  -mth 0 -sdt 2 -ovb 1 -ofb 3 -ofc 0 -ost 0 -ocr 0 -dv $sk_SmoothD -peh 0 -bnr 1 -c 1 -kb 1 -ksb 1 -khe 0 -kt 1 -kmb 1 -suv 1 -sl 1 -dpe 1 -ps 0.1 -ro 1 -ch 1;
+    
+//Transfer attributes
+select -r qsSphere;
+select -add qsCube;
+transferAttributes -transferPositions 1;
+    
+//Delete history, geometry and rename, unfold
+DeleteHistory;
+select -r qsCube;
+rename  $sk_quadsphereN;
+            if ($sk_cubeUV == 1) 
+                {
+                u3dUnfold -ite 1 -p 0 -bi 1 -tf 1 -ms 32 -rs 0;     /*you can resolishion changes (it is  made  for speed)*/ 
+                u3dLayout -res 32 -scl 1 -box 0 1 0 1;              /*you can resolishion changes (it is  made  for speed)*/ 
+                }       
+select -r qsSphere;
+doDelete;
+
+string $message = "quad sphere <hl>created</hl>";
+inViewMessage -smg ($message) -fade -pos midCenter;
+
+//Print
+print $sk_printqsN;  
+
