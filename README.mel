@@ -1,68 +1,163 @@
-                    //Perfect Sphere Script
-                        /*version 1.0*/
+ /*  
 
-/* 
+ //              *_______________________________________*
+ //              |                                       |
+ //              |          Perfect Sphere Script        | 
+ //              |               qSphere_v1.0            |
+ //              |_______________________________________|
+               
 
-Script done by: Sergey Khanin
+Script done by: Khanin Sergey Leonidovich
 Contact email: khaninsergeyleonidovich@gmail.com
  
-Script generate perfect quads sphere
+//Script generate perfect quads sphere
  
-        Supported maya version:
-         - Maya 2018
-         - Maya 2019 and up
-         - Did not check an older version, let me know if it works
+Supported maya version:
+    - Did not check an older version, let me know if it works
+    - Maya 2016
+    - Maya 2017
+    - Maya 2018
+    - Maya 2019 and up
          
 //You can use the script for personl commercial work 
 //You can use the script if you freelance artist or you are working in the studio 
 //You can change or reuse the script code without at least some credits 
 //If you have feedback, send me message on email
-//Script is free and available for download only on my Gumroad    
-         
-
-//DISCLAIMER
+//Script is free and available for download only on my Gumroad
    
-         
+//DISCLAIMER
+THE SCRIPT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. 
+KHANIN SERGEY LEONIDOVICH DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES INCLUDING, 
+BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, 
+OR ARISING FROM A COURSE OF DEALING, USAGE, OR TRADE PRACTICE. 
+IN NO EVENT WILL KHANIN SERGEY LEONIDOVICH BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF KHANIN SERGEY LEONIDOVICH HAS BEEN ADVISED OF THE POSSIBILITY OR 
+PROBABILITY OF SUCH DAMAGES.
 
-Instalshion:
+//INSTALLATION
    -In Maya, open Script Editor and simply open (in MEL tab) the script file "qSphere_v.?.?"
    -Save it in the shelf
    -You can custom icon (provided with the download "qSphere_icon")
-   -Copy script to "command" tab in Shelf editor
-   -In "command" tab write short command "qsphere 30 3 0;" without "" or your custom command
-   -You may add popup menu short command like*                                                     qsphere 30 3 0;
-                                                                                                   qsphere 30 3 1;   
-   *FIRST START NEED "double click command
+   -You may add popup menu for fast chooser sphere
    
-//BAGS
+//POSSIBLE PROBLEMS
+    -Script doesn't work correctly if  in scene have some object with name "qSphere1" "sk_qsCube" "sk_qsSphere" //just delete or rename object in scene
+    -Script doesn't work correctly if  in "Plugin manager" Unfold3D.mll is disabled //just enable it
 
-                                                          /\
-                                                         /  \
-                                                        /    \
-                                                       /_    _\
-                                                         |  |
-                                                         |  |
-                                                         |  |
-_________________________________________delete this after reading,if you want_____________________________________________________
+                 //for old version on Maya change "command" in brackets *LINE 212-213*
 
-                                                                                   
+        ConvertSelectionToFaces;
+        Unfold3D -u -ite 1 -p 1 -bi 1 -tf 1 -ms 32 -rs 2;     
+        LayoutUV -lm 1 -sc 1 -rbf 1 -fr 1 -ps 3.2 -l 2 -gu 1 -gv 1 -psc 0 -su 1 -sv 1 -ou 0 -ov 0;
+        toggleSelMode;
+        selectMode -object;
+
+    -If you find some problem, send me message on email
+
+//                                                        /\
+//                                                       /  \
+//                                                      /    \
+//                                                     /_    _\
+//                                                       |  |
+//                                                       |  |
+//                                                       |  |
+_________________________________________delete this after reading, if you want_____________________________________________________
+                                                                                 
 */
 
-  
+
+
+
+
+
+
+
+
+
+/*_________________________________________________________________________________________________________________________________*/
+
 //Selecet sphere radius 
 float $sk_sphereR = 30;      /*Sphere radius chooser*/ 
 
 //Selecet smooth divisions
-int $sk_SmoothD = 3;         /*Smooth divisions chooser*/    /*FACE*/    /* 0-6    1-24    2-96    3-384    4-1536    5-6144    6-... */  
+int $sk_SmoothD = 3;         /*Smooth divisions chooser*/    /*     */    /* 0-6    1-24    2-96    3-384    4-1536    5-6144    6-... */  
 
 //UV value
 int $sk_cubeUV = 0;          /* 0 - UV off */    /* 1 - UV on */
 
+/*_________________________________________________________________________________________________________________________________*/
 
-/*_________________________________________________________________________________________________________________________________/*
 
 
-    
+
+
+
+
+
+
+
+//Sphere radius default value
+int $sk_sphereRdefaultV = 30;
+
+//BLOCKING divisions value
+int $sk_blockSmoothD = 6; /*Blocking value, protection of crashing system*/ //recommended 6-8
+
+//UVs value default value
+int $sk_UVsOn = 1; 
+int $sk_UVsOff = 0;
+
+//Messages
+string $sk_incorrectRadiusM = "Sphere radius <hl>Incorrect value</hl>, return to <span style=\"color:#ff3838;\">default</span> value ";
+string $sk_blockSmoothM = "Divisions <hl>Value is blocked</hl>, protection of crashing system, return to <span style=\"color:#ff3838;\">default</span> value";
+string $sk_incorrectUVsMon = "UVs <hl>Incorrect value</hl>, return to <span style=\"color:#ff3838;\">default</span> value UV's <hl>On</hl>";
+string $sk_incorrectUVsMoff = "UVs <hl>Incorrect value</hl>, return to <span style=\"color:#ff3838;\">default</span> value UV's <hl>Off</hl>";
+
+//Sphere radius value checker
+        if ($sk_sphereR < 0 )
+        {
+        $sk_sphereR = $sk_sphereRdefaultV; //default value
+        inViewMessage -smg ($sk_incorrectRadiusM) -fade -pos midCenter;
+        }
+        else
+        {
+        print " Correct sphere radius ";
+        }
+print $sk_sphereR;
+
+//Smooth divisions value checker
+        if ($sk_SmoothD >= $sk_blockSmoothD)
+        {
+        $sk_SmoothD = 3; //default value
+        inViewMessage -smg ($sk_blockSmoothM) -fade -pos midCenter;
+        }
+        else if ($sk_SmoothD < 0)
+        {
+        $sk_SmoothD = 3; //default value
+        inViewMessage -smg ($sk_blockSmoothM) -fade -pos midCenter;
+        }
+        else
+        {
+        print " Safe smooth divisions ";
+        }      
+print $sk_SmoothD;
+
+//UVs value checker
+        if ($sk_cubeUV > 1)
+        {
+        $sk_cubeUV = $sk_UVsOn ; //default value
+        inViewMessage -smg ($sk_incorrectUVsMon) -fade -pos midCenter;
+        }
+        else if ($sk_cubeUV < 0)
+        {
+        $sk_cubeUV = $sk_UVsOff; //default value
+        inViewMessage -smg ($sk_incorrectUVsMoff) -fade -pos midCenter;
+        }
+        else
+        {
+        print " Correct UVs value ";
+        }      
+print $sk_cubeUV;
+ 
 //Sphere quality
 int $sk_sphereQ = 60; /*recommended 50-70*/ 
        
@@ -70,15 +165,15 @@ int $sk_sphereQ = 60; /*recommended 50-70*/
 int $sk_sphereS = $sk_SmoothD * $sk_sphereQ;
           
 //Coefficient value
-float $sk_coefficientvalue = 2.3;
+float $sk_coefficientvalue = 2.3; /*recommended 2.3*/ 
     
 //Cube size calculation
 float $sk_cubeHWD = $sk_sphereR * $sk_coefficientvalue;
       
-//Type  object name
+//Type object name
 string $sk_quadsphereN = "qSphere1";
-string $sk_cubeN = "qsCube";
-string $sk_sphereN = "qsSphere";
+string $sk_cubeN = "sk_qsCube";
+string $sk_sphereN = "sk_qsSphere";
 string $sk_printqsN = "quad_sphere_created";
     
 //Create geometry
@@ -87,40 +182,37 @@ polyCube -w $sk_cubeHWD -h $sk_cubeHWD -d $sk_cubeHWD -n $sk_cubeN;
     
 //Create UV   
         if ($sk_cubeUV == 1) /*1-ON UV*/  
-            {
-            select -r qsCube;
-            CutUVs;   
-            }
-        if ($sk_cubeUV<= 0) /*0-OFF UV*/ 
-            {
-            select -r qsCube;
-            DeleteUVs;   
-            }
+        {
+        select -r sk_qsCube;
+        CutUVs;   
+        }
+        else if ($sk_cubeUV<= 0) /*0-OFF UV*/ 
+        {
+        select -r sk_qsCube;
+        DeleteUVs;   
+        }
            
 //Smooth cube
-select -r qsCube;
+select -r sk_qsCube;
 polySmooth  -mth 0 -sdt 2 -ovb 1 -ofb 3 -ofc 0 -ost 0 -ocr 0 -dv $sk_SmoothD -peh 0 -bnr 1 -c 1 -kb 1 -ksb 1 -khe 0 -kt 1 -kmb 1 -suv 1 -sl 1 -dpe 1 -ps 0.1 -ro 1 -ch 1;
     
 //Transfer attributes
-select -r qsSphere;
-select -add qsCube;
+select -r sk_qsSphere;
+select -add sk_qsCube;
 transferAttributes -transferPositions 1;
+DeleteHistory;
     
 //Delete history, geometry and rename, unfold
-DeleteHistory;
-select -r qsCube;
+select -r sk_qsSphere; 
+doDelete;
+select -r sk_qsCube;
 rename  $sk_quadsphereN;
             if ($sk_cubeUV == 1) 
-                {
-                u3dUnfold -ite 1 -p 0 -bi 1 -tf 1 -ms 32 -rs 0;     /*you can resolishion changes (it is  made  for speed)*/ 
-                u3dLayout -res 32 -scl 1 -box 0 1 0 1;              /*you can resolishion changes (it is  made  for speed)*/ 
-                }       
-select -r qsSphere;
-doDelete;
-
-string $message = "quad sphere <hl>created</hl>";
-inViewMessage -smg ($message) -fade -pos midCenter;
-
+            {
+            u3dUnfold -ite 1 -p 0 -bi 1 -tf 1 -ms 32 -rs 0;     /*you can resolishion changes (it is  made  for speed)*/ // change "command" for old version Maya
+            u3dLayout -res 32 -scl 1 -box 0 1 0 1;              /*you can resolishion changes (it is  made  for speed)*/ // change "command" for old version Maya
+            }
+DeleteHistory; 
+      
 //Print
 print $sk_printqsN;  
-
