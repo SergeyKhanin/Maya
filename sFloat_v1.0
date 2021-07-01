@@ -1,0 +1,192 @@
+ /*  
+
+ //              *_______________________________________*
+ //              |                                       |
+ //              |          Get_Float_Sript              | 
+ //              |               sFloat_v1.0             |
+ //              |_______________________________________|
+               
+
+Script done by: Khanin Sergey Leonidovich
+Contact email: khaninsergeyleonidovich@gmail.com
+ 
+//Script generate float from round geometry (without caps) or flat geometry. 
+
+You can change fil hole ou can change fill hole parameter
+
+SWITCH int $sk_floatCenter = 0;                      /*1(Poke) 0(Close)*/
+
+For example: 
+
+One click on shelf  1(Poke)
+Double click on shelf 0(Close)
+ 
+Supported maya version:
+    - Did not check an older version, let me know if it works
+    - Maya 2016
+    - Maya 2017
+    - Maya 2018
+    - Maya 2019
+    - Maya 2020 and up
+         
+//You can use the script for personl commercial work 
+//You can use the script if you freelance artist or you are working in the studio 
+//You can change or reuse the script code without at least some credits 
+//If you have feedback, send me message on email
+//Script is free and available for download only on my Gumroad
+   
+//DISCLAIMER
+THE SCRIPT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. 
+KHANIN SERGEY LEONIDOVICH DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES INCLUDING, 
+BUT NOT LIMITED TO, THE WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, 
+OR ARISING FROM A COURSE OF DEALING, USAGE, OR TRADE PRACTICE. 
+IN NO EVENT WILL KHANIN SERGEY LEONIDOVICH BE LIABLE FOR ANY LOST REVENUES, DATA, OR PROFITS, OR SPECIAL,
+DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES, EVEN IF KHANIN SERGEY LEONIDOVICH HAS BEEN ADVISED OF THE POSSIBILITY OR 
+PROBABILITY OF SUCH DAMAGES.
+
+//INSTALLATION
+   -In Maya, open Script Editor and simply open (in MEL tab) the script file "qSphere_v.?.?"
+   -Save it in the shelf
+   -You can custom icon (provided with the download "qSphere_icon")
+   -You may add popup menu for fast chooser sphere
+   
+//POSSIBLE PROBLEMS
+    -If you find some problem, send me message on email
+
+//                                                        /\
+//                                                       /  \
+//                                                      /    \
+//                                                     /_    _\
+//                                                       |  |
+//                                                       |  |
+//                                                       |  |
+_________________________________________delete this after reading, if you want_____________________________________________________
+                                                                                 
+*/
+
+
+/*_________________________________________________________________________________________________________________________________*/
+
+
+float $sk_ExValue = 0.2;                      /*Extrude value chooser*/  
+float $sk_OffsetValue = 0.025;                /*Offset value chooser*/ 
+
+float $sk_BeValue = $sk_ExValue/2;            /*Bevel value solver*/ 
+float $sk_ExValueMinus = $sk_ExValue*(-1);    /*Extrude value solver*/
+
+int $sk_faceswitcher = 5;                     /*3(triangles) 4(quads) 5(nsides) any value(select all)*/
+int $sk_floatCenter = 0;                      /*1(Poke) 0(Close)*/
+
+/*_________________________________________________________________________________________________________________________________*/
+
+
+//Get surface and reverse normals
+FreezeTransformations;
+rename sk_float_name; /*get name*/
+polyCloseBorder -ch 1;
+ReversePolygonNormals;
+DeleteHistory;
+
+/*_________________________________________________________________________________________________________________________________*/                
+
+
+//Select nsides
+string $sk_facenameM = " Condition ";
+        if ($sk_faceswitcher == 3)
+         {
+         $sk_faceswitcher = 1;
+         $sk_facenameM= " triangle/s ";
+         }
+         else if ($sk_faceswitcher == 4)
+         {
+         $sk_faceswitcher = 2;
+         $sk_facenameM = " quad/s ";
+        }
+        else if ($sk_faceswitcher == 5)
+        {
+        $sk_faceswitcher = 3;
+        $sk_facenameM = " float/s ";
+        }
+        else
+        {
+        $sk_faceswitcher = 0;
+        $sk_facenameM = " face/s ";
+        }
+print $sk_faceswitcher;
+print $sk_facenameM;
+int $sk_faceselection = $sk_faceswitcher; 
+print $sk_faceselection;
+select -r `ls -sl`;
+ConvertSelectionToFaces;
+polySelectConstraint -m 2 -t 0x0008 -sz $sk_faceselection; 
+resetPolySelectConstraint;   /*reset constraint (to avoid bugs)*/ 
+
+print $sk_counter[0];
+int $sk_counter[] = `polyEvaluate -fc`;
+string $sk_counterM = "<span style=\"color:#f   f3838;\">" +$sk_counter[0]+ "</span>" + $sk_facenameM + "сreated" ;         /*change colour if you want "#ff3838"*/
+
+inViewMessage -smg ($sk_counterM) -fade -pos midCenter; /*change message position if you want "
+
+/*_________________________________________________________________________________________________________________________________*/
+
+
+//Delite faces
+InvertSelection;
+doDelete;
+
+//Move local position Z
+select -r sk_float_name;
+polyMoveFacet -localTranslateZ $sk_OffsetValue;
+
+//Extrude edges
+ConvertSelectionToEdges;
+polyExtrudeEdge -constructionHistory 1 -keepFacesTogether 1 -divisions 1 -twist 0 -taper 1 -offset $sk_ExValue -thickness $sk_ExValue -smoothingAngle 30;
+polyExtrudeEdge -constructionHistory 1 -keepFacesTogether 1 -divisions 1 -twist 0 -taper 1 -offset $sk_ExValue -thickness $sk_ExValueMinus -smoothingAngle 30;
+
+//Select hard edges
+polySelectConstraint -m 3 -t 0x8000 -sm 1; // to get hard edges
+$selection = `ls -sl`; // Save selection to tmp var
+polySelectConstraint -sm 0; // Reset contraints
+select $selection; // Push tmp var to selection
+
+
+//Bevel
+polyBevel3 -offset 0.00 -offsetAsFraction $sk_BeValue  -autoFit 1 -depth 1 -mitering 0 -miterAlong 0 -chamfer 0 -segments 2 -worldSpace 1 -smoothingAngle 30 -subdivideNgons 1 -mergeVertices 1 -mergeVertexTolerance 0.0001 -miteringAngle 180 -angleTolerance 180 -ch 1;
+
+
+//Select nsides
+select -r sk_float_name; 
+select -r `ls -sl`;
+ConvertSelectionToFaces;
+polySelectConstraint -m 2 -t 0x0008 -sz $sk_faceselection; 
+resetPolySelectConstraint;   /*reset constraint (to avoid bugs)*/ 
+
+//Get quad center
+
+
+//Generate float center 
+int $sk_cFloat = $sk_floatCenter;
+        if ($sk_cFloat >= 1) /*1-Poke*/  
+        {
+        polyPoke ;
+        }
+        else if ($sk_cFloat <= 0) /*0-Close*/ 
+        {
+        polyTriangulate -ch 1 ;
+        polyQuad  -a 90 -kgb 1 -ktb 1 -khe 1 -ws 1 -ch 1 ;   
+        }
+print $sk_cFloat;
+
+////Delete border
+select -r sk_float_name; 
+ConvertSelectionToEdges;
+ConvertSelectionToShellBorder;
+ConvertSelectionToEdges;
+PolySelectConvert 1;
+doDelete;
+
+//Rename
+select -r sk_float_name; 
+rename sk_float_001;
+
+DeleteHistory;
