@@ -1,0 +1,84 @@
+//                    \  /            
+//Face switcher        \/ 
+int $sk_faceswitcher = 3; /*3(triangles) 4(quads) 5(nsides) any value(select all)*/
+//                     /\
+//                    /  \
+
+
+
+//Face names
+string $sk_facenameM = " Condition ";
+
+
+
+//Face chooser 
+        if ($sk_faceswitcher == 3)
+         {
+         $sk_faceswitcher = 1;
+         $sk_facenameM= " triangle/s ";
+         }
+         else if ($sk_faceswitcher == 4)
+         {
+         $sk_faceswitcher = 2;
+         $sk_facenameM = " quad/s ";
+        }
+        else if ($sk_faceswitcher == 5)
+        {
+        $sk_faceswitcher = 3;
+        $sk_facenameM = " nside/s ";
+        }
+        else
+        {
+        $sk_faceswitcher = 0;
+        $sk_facenameM = " face/s ";
+        }
+print $sk_faceswitcher;
+print $sk_facenameM;
+
+//Face selection
+int $sk_faceselection = $sk_faceswitcher; 
+print $sk_faceselection;
+
+
+//Select geometry
+select -r `ls -sl`;
+
+//Convert to faces 
+ConvertSelectionToFaces;
+
+//Select triangles/quads/nsided
+polySelectConstraint -m 2 -t 0x0008 -sz $sk_faceselection; 
+resetPolySelectConstraint;   /*reset constraint (to avoid bugs)*/ 
+
+//Display counter
+int $sk_counter[] = `polyEvaluate -fc`;
+string $sk_counterM = "<span style=\"color:#ff3838;\">" +$sk_counter[0]+ "</span>" + $sk_facenameM + "found" ;         /*change colour if you want "#ff3838"*/
+
+
+
+//                                                                                                      \  /
+//                                                                                                       \/
+
+inViewMessage -smg ($sk_counterM) -fade -pos midCenter; /*change message position if you want "                     " */
+
+                                                                                                    
+//                                                                                                    topLeft
+//                                                                                                    topCenter
+//                                                                                                    topRight
+//                                                                                                    midLeft"
+//                                                                                                    midCenter
+//                                                                                                    midCenterTop
+//                                                                                                    midCenterBot
+//                                                                                                    midRight
+//                                                                                                    botLeft
+//                                                                                                    botCenter
+//                                                                                                    botRight
+                                                                                                    
+
+
+//                                                                                                       /\
+//                                                                                                      /  \
+
+
+
+print $sk_counter[0];

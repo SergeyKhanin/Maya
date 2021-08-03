@@ -1,0 +1,48 @@
+string $sk_DisplayHardEdges = `window -title "sk_Display_Hard_Edges" -widthHeight 400 320`;
+              
+    columnLayout;
+    menuBarLayout;        
+    menu -label "Colour";
+        button  -bgc 1.0 1.0 1.0 -l "White" -c "sk_cl_White";
+        button  -bgc 0.0 0.0 0.0 -l "Black" -c "sk_cl_Black";
+    menuBarLayout;        
+    menu -label "Custom Colour";
+        floatSliderGrp -max 1 -label "Red" -field true skColourRed;
+        floatSliderGrp -max 1 -label "Green" -field true skColourGreen;
+        floatSliderGrp -max 1 -label "Blue" -field true skColourBlue;
+        button  -l "Apply" -c "sk_CustomColour"; 
+     menuBarLayout;        
+     menu -label "Line Width";
+        floatSliderGrp -label "Value" -field true skLineWidthValue;
+        button  -l "Apply" -c "sk_chLineWidth"; 
+     menuBarLayout;        
+     menu -label "Option";
+        button  -l "Reset" -c "sk_LineWidthReset"; 
+        button  -bgc 0.99 0.99 0.99 -l "Close Window" -c ("deleteUI -window " + $sk_DisplayHardEdges);      
+showWindow $sk_DisplayHardEdges;
+
+proc sk_cl_White() {
+    TogglePolyDisplayHardEdgesColor;
+    displayRGBColor "hardedgeHilite" 1 1 1;
+}
+proc sk_cl_Black() {
+    TogglePolyDisplayHardEdgesColor;
+    displayRGBColor "hardedgeHilite" 0 0 0;
+}
+proc sk_chLineWidth() {
+    string $sk_visPanels[] = `getPanel -vis`;
+    float $sk_lineWidth = `floatSliderGrp -q -value "skLineWidthValue"`;
+    modelEditor -e -lineWidth $sk_lineWidth $sk_visPanels;
+}
+proc sk_LineWidthReset() {
+    ResetDisplay;
+    string $sk_visPanels[] = `getPanel -vis`;
+    modelEditor -e -lineWidth 1 $sk_visPanels;
+}
+proc sk_CustomColour() {
+    float $sk_ColourValueRed = `floatSliderGrp -q -value "skColourRed"`;
+    float $sk_ColourValueGreen = `floatSliderGrp -q -value "skColourGreen"`;
+    float $sk_ColourValueBlue = `floatSliderGrp -q -value "skColourBlue"`;
+    TogglePolyDisplayHardEdgesColor;
+    displayRGBColor "hardedgeHilite" $sk_ColourValueRed $sk_ColourValueGreen $sk_ColourValueBlue;
+}
