@@ -52,7 +52,7 @@ resetPolySelectConstraint;   /*reset constraint (to avoid bugs)*/
 
 //Display counter
 int $sk_counter[] = `polyEvaluate -fc`;
-string $sk_counterM = "<span style=\"color:#ff3838;\">" +$sk_counter[0]+ "</span>" + $sk_facenameM + "found" ;         /*change colour if you want "#ff3838"*/
+string $sk_counterM = "<span style=\"color:#ff3838;\">" + $sk_counter[0]+ "</span>" + $sk_facenameM + "found" ;         /*change colour if you want "#ff3838"*/
 
 
 
