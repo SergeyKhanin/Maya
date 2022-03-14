@@ -1,4 +1,4 @@
-# Maya_Scripts
+# MayaScripts
 Scripts for maya
       
 Script done by: Khanin Sergey Leonidovich
