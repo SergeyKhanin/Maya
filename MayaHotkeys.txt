@@ -1,0 +1,116 @@
+Q - select tool
+W - move tool
+E - rotate tool
+R - scale tool
+D - move pivot
+G - repeat last action
+P - parent
+M - material editor
+T - show manipulator tool
+
+
+
+Ctrl + Shift + X - multyCut
+Ctrl + Shift + Q - relax
+
+
+
+Ctrl + 0 - pivot to zero
+Alt + 0 - move to zero
+
+
+
+Ctrl + Alt + B - unbevel
+
+
+
+Ctrl + 1 - isolate selected
+Ctrl + 2 - xray selected
+Ctrl + C - connect	
+Ctrl + B - bevel
+Ctrl + V - bridge
+Ctrl + T - target weld
+Ctrl + M - poly merge
+Ctrl + J - merge to center
+Ctrl + F - edge flow
+Ctrl + A - averege vertex
+Ctrl + N - clean combain
+Ctrl + Q - average line
+Ctrl + R - arc/string
+Ctrl + H - clear history
+Ctrl + U - unfreeze trancform 
+Ctrl + P - pivot to center
+
+
+
+Alt + V - poke face
+Alt + F - quad fill hole
+Alt + B - boolen
+Alt + S - soft edge
+Alt + H - hard edge
+Alt + N - clean separate
+Alt + C - circulaze
+Alt + L - makelive
+Alt + D - detach component
+Alt + T - triangulate polygons
+Alt + J - collapse edge
+Alt + E - dot loop
+Alt + P - perspective view 
+
+
+
+Alt + Up - move up one pixel
+Alt + Down - move down one pixel
+Alt + Left - move left one pixel
+Alt + Right - move right one pixel
+
+
+
+
+Shift + P - unparent
+Shift + Q - grow loop
+Shift + W - pattern select
+Shift + E - ring loop
+Shift + R - contiguous edges
+Shift + F - select similar
+Shift + S - select soft edges
+Shift + H - select hard edges
+Shift + > - grow selected
+Shift + > - shrink selected
+
+
+
+
+Shift + 1 - angle constrain
+Shift + 2 - slide surface
+Shift + 3 - modeling toolkit
+Shift + 4 - texture window
+
+
+
+6 - flat light
+7 - ligh off
+8 - wireframe shaded
+9 - hidden triangles
+0 - vertex normal
+
+
+
+
+Shift + Space  - zoom-in view (done)
+Ctrl + Space  - full sreen view  (done)
+
+
+
+` - change viewport color space
+H - hide/unhide
+
+
+P - layout UV
+U - unfold UV
+C - cut UV
+S - sew UVq
+O - optimaize UV
+I - orient UV
+Alt + I - orient UV by edge
+Ctrl + Shift + W - straight UV
