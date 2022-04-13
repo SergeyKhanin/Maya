@@ -8,16 +8,17 @@ Contact email: khaninsergeyleonidovich@gmail.com
 
 Supported maya version:
 
-          -Maya 2016
-
-          -Maya 2017
 
           -Maya 2018
 
           -Maya 2019
 
-          -Maya 2020 and up
-
+          -Maya 2020
+          
+          -Maya 2022
+          
+          -Maya 2023 and up
+          
          
 *You can use the script for personl commercial work* 
 
