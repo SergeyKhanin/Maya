@@ -83,8 +83,10 @@ Shift + > - shrink selected
 
 Shift + 1 - angle constrain
 Shift + 2 - slide surface
-Shift + 3 - modeling toolkit
-Shift + 4 - texture window
+Shift + M - modeling toolkit
+Shift + U - texture window
+Shift + A - atribute editor window
+Shift + C - chanel box window
 
 
 
