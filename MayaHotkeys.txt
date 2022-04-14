@@ -26,6 +26,7 @@ Ctrl + Alt + B - unbevel
 
 Ctrl + 1 - isolate selected
 Ctrl + 2 - xray selected
+Ctrl + 3 - bounding box selected  
 Ctrl + C - connect	
 Ctrl + B - bevel
 Ctrl + V - bridge
@@ -40,6 +41,7 @@ Ctrl + R - arc/string
 Ctrl + H - clear history
 Ctrl + U - unfreeze trancform 
 Ctrl + P - pivot to center
+Ctrl + X - bridge pro
 
 
 
