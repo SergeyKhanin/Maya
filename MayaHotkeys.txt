@@ -66,7 +66,6 @@ Alt + Right - move right one pixel
 
 
 
-
 Shift + P - unparent
 Shift + Q - grow loop
 Shift + W - pattern select
@@ -77,7 +76,6 @@ Shift + S - select soft edges
 Shift + H - select hard edges
 Shift + > - grow selected
 Shift + > - shrink selected
-
 
 
 
@@ -98,14 +96,14 @@ Shift + C - chanel box window
 
 
 
-
 Shift + Space  - zoom-in view (done)
 Ctrl + Space  - full sreen view  (done)
 
 
 
-` - change viewport color space
+` - toggle viewport color space
 H - hide/unhide
+
 
 
 P - layout UV
@@ -118,6 +116,7 @@ M - match UV
 Alt + I - orient UV by edge
 Alt + F - flip UV
 Alt + E - rotate UV
+
 
 
 Ctrl + Shift + W - straight UV

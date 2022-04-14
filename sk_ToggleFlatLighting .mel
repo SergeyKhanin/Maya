@@ -1,4 +1,3 @@
 modelEditor -e -dl flat modelPanel4;
-
 $message = "Flat lighting display is now <span style=\"color:#38ff38;\">on</span>.Press <hl>5</hl> to display objects in shaded mode.";
 inViewMessage -smg ($message) -fade -pos topCenter;
