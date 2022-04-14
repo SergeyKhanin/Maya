@@ -114,5 +114,10 @@ C - cut UV
 S - sew UVq
 O - optimaize UV
 I - orient UV
+M - match UV
 Alt + I - orient UV by edge
+Alt + F - flip UV
+Alt + E - rotate UV
+
+
 Ctrl + Shift + W - straight UV
