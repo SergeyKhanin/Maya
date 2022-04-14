@@ -1,0 +1,16 @@
+//Scale shell
+float $sk_scaleshell = 0.5; /*select value*/
+
+//Create  bounding box coordinites
+float $sk_bc2[] = `polyEvaluate -bc2 -ae`;
+
+//Create pivot from bounding box coordinites
+float $sk_pU = ($sk_bc2[0] + $sk_bc2[1])/2;
+float $sk_pV = ($sk_bc2[2] + $sk_bc2[3])/2;
+
+//Print coordinites
+print $sk_pU;
+print $sk_pV;
+
+//Scale shell
+polyEditUV -pu $sk_pU -pv $sk_pV -su $sk_scaleshell -sv $sk_scaleshell;

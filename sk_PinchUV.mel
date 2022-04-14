@@ -1,0 +1,2 @@
+//Pinch UV to 1x2 dimension sizes (POT)
+polyEditUV  -su 0.5 -sv 1; /*swap valuses to 2x1 dimension sizes*/

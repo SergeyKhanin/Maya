@@ -1,0 +1,3 @@
+toggleWireframeOnShadedOption;
+$message = "Wireframe shaded display is now <span style=\"color:#38ff38;\">on</span>.Press <hl>8</hl> to disable.";
+inViewMessage -smg ($message) -fade -pos topCenter;
