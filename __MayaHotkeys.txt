@@ -57,7 +57,10 @@ Alt + D - detach component
 Alt + T - triangulate polygons
 Alt + J - collapse edge
 Alt + E - dot loop
-Alt + P - perspective view 
+Alt + P - perspective view
+Alt + X - mirror x axis
+Alt + Y - mirror y axis
+Alt + Z - mirror z axis
 
 
 
