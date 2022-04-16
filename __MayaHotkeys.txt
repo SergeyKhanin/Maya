@@ -12,11 +12,12 @@ T - show manipulator tool
 
 Ctrl + Shift + X - multyCut
 Ctrl + Shift + Q - relax
+Ctrl + Shift + P convert to selection border
 
 
 
-Ctrl + 0 - pivot to zero
-Alt + 0 - move to zero
+Alt + 0 - pivot to zero
+Ctrl  + 0 - move to zero 
 
 
 
@@ -122,7 +123,4 @@ M - match UV
 Alt + I - orient UV by edge
 Alt + F - flip UV
 Alt + E - rotate UV
-
-
-
 Ctrl + Shift + W - straight UV
