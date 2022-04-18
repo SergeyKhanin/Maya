@@ -123,4 +123,5 @@ M - match UV
 Alt + I - orient UV by edge
 Alt + F - flip UV
 Alt + E - rotate UV
+Alt + R - straighten shell
 Ctrl + Shift + W - straight UV
