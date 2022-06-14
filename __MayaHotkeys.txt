@@ -124,4 +124,5 @@ Alt + I - orient UV by edge
 Alt + F - flip UV
 Alt + E - rotate UV
 Alt + R - straighten shell
+Alt + U - left UV (1 unit)
 Ctrl + Shift + W - straight UV
