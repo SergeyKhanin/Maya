@@ -47,7 +47,6 @@ Ctrl + X - bridge pro
 
 
 Alt + V - poke face
-Alt + F - quad fill hole
 Alt + B - boolen
 Alt + S - soft edge
 Alt + H - hard edge
@@ -62,7 +61,8 @@ Alt + P - perspective view
 Alt + X - mirror x axis
 Alt + Y - mirror y axis
 Alt + Z - mirror z axis
-
+Ctrl + Alt + F - quad fill hole
+Alt + F - fill hole
 
 
 Alt + Up - move up one pixel
@@ -103,8 +103,8 @@ Shift + C - chanel box window
 
 
 
-Shift + Space  - zoom-in view (done)
-Ctrl + Space  - full sreen view  (done)
+Shift + Space  - zoom-in view
+Ctrl + Space  - full sreen view
 
 
 
