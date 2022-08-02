@@ -1,0 +1,2 @@
+//UnPinch UV 1x2 to 1x1 dimension sizes (POT)
+polyEditUV  -su 2 -sv 1;
