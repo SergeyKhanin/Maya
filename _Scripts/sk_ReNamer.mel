@@ -1,2 +1,30 @@
-//UnPinch UV 1x2 to 1x1 dimension sizes (POT)
-polyEditUV  -su 2 -sv 1;
+string $reNamerWindow = `window -title "ReNamer" -widthHeight 230 150`;             
+    columnLayout;
+    menuBarLayout;        
+        button  -bgc 0.0 0.0 0.5 -l "                            _blokout                            " -c "_postfixBlockOut";
+        button  -bgc 0.0 0.5 0.0 -l "                            _low                            " -c "_postfixLow";
+        button  -bgc 0.5 0.0 0.0 -l "                            _high                            " -c "_postfixHigh";
+        button  -bgc 0.25 0.25 0.25 -l "                            _middle                            " -c "_postfixMiddle";
+        button  -bgc 0.25 0.25 0.25 -l "                            _left                            " -c "_postfixLeft";
+        button  -bgc 0.25 0.25 0.25 -l "                            _right                            " -c "_postfixRight";     
+showWindow $reNamerWindow;
+
+
+proc _postfixBlockOut() {
+    searchReplaceNames "$" "_blokout" "hierarchy";
+}
+proc _postfixLow () {
+    searchReplaceNames "$" "_low" "hierarchy";
+}
+proc _postfixHigh () {
+    searchReplaceNames "$" "_high" "hierarchy";
+}
+proc _postfixLeft ()  {
+    searchReplaceNames "$" "_left" "hierarchy";
+}
+proc _postfixRight () {
+    searchReplaceNames "$" "_right" "hierarchy";
+}
+proc _postfixMiddle () {
+    searchReplaceNames "$" "_middle" "hierarchy";
+}
