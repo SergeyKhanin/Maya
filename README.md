@@ -20,7 +20,7 @@ Supported maya version:
           -Maya 2023 and up
           
          
-*You can use the script for personl commercial work* 
+*You can use the script for personal commercial work* 
 
 *You can use the script if you freelance artist or you are working in the studio* 
 
@@ -28,9 +28,7 @@ Supported maya version:
 
 *If you have feedback, send me message on email*
 
-*Script is free and available for download only on my Gumroad*
-
-   
+ 
 DISCLAIMER
 THE SCRIPT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. 
 KHANIN SERGEY LEONIDOVICH DOES NOT MAKE AND HEREBY DISCLAIMS ANY EXPRESS OR IMPLIED WARRANTIES INCLUDING, 
@@ -46,4 +44,4 @@ PROBABILITY OF SUCH DAMAGES.
    
           -Save it in the shelf
    
-          -You may add popup menu for fast chooser sphere
+          -You may add popup menu
