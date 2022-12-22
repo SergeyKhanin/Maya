@@ -10,7 +10,6 @@ string $reNamerWindow = `window -title "ReNamer" -widthHeight 60 190`;
         button  -bgc 0.1 0.1 0.1 -l "_mesh" -c "_postfixMesh";     
 showWindow $reNamerWindow;
 
-
 proc _postfixBlockOut() 
 {
     searchReplaceNames "$" "_blokout" "hierarchy";
