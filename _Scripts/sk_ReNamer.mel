@@ -1,4 +1,4 @@
-string $reNamerWindow = `window -title "ReNamer" -widthHeight 60 190`;             
+string $reNamerWindow = `window -title "ReNamer" -widthHeight 60 305`;             
     columnLayout;
     menuBarLayout;        
         button  -bgc 0.0 0.0 0.5 -l "_blokout" -c "_postfixBlockOut";
@@ -8,6 +8,11 @@ string $reNamerWindow = `window -title "ReNamer" -widthHeight 60 190`;
         button  -bgc 0.25 0.25 0.25 -l "_left" -c "_postfixLeft";
         button  -bgc 0.25 0.25 0.25 -l "_right" -c "_postfixRight";
         button  -bgc 0.1 0.1 0.1 -l "_mesh" -c "_postfixMesh";     
+        button  -bgc 0.1 0.1 0.1 -l "_geo" -c "_postfixGeo";     
+        button  -bgc 0.9 0.9 0.9 -l "_LOD0" -c "_postfixLOD0";     
+        button  -bgc 0.8 0.8 0.8 -l "_LOD1" -c "_postfixLOD1";     
+        button  -bgc 0.7 0.7 0.7 -l "_LOD2" -c "_postfixLOD2";     
+        button  -bgc 0.6 0.6 0.6 -l "_LOD3" -c "_postfixLOD3";     
 showWindow $reNamerWindow;
 
 proc _postfixBlockOut() 
@@ -37,4 +42,24 @@ proc _postfixMiddle ()
 proc _postfixMesh () 
 {
     searchReplaceNames "$" "_mesh" "hierarchy";
+}
+proc _postfixGeo () 
+{
+    searchReplaceNames "$" "_geo" "hierarchy";
+}
+proc _postfixLOD0() 
+{
+    searchReplaceNames "$" "_LOD0" "hierarchy";
+}
+proc _postfixLOD1() 
+{
+    searchReplaceNames "$" "_LOD1" "hierarchy";
+}
+proc _postfixLOD2() 
+{
+    searchReplaceNames "$" "_LOD2" "hierarchy";
+}
+proc _postfixLOD3() 
+{
+    searchReplaceNames "$" "_LOD3" "hierarchy";
 }
